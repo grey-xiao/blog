@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use Carbon\Carbon;
+use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Date;
+
 
 class PostController extends Controller
 {
@@ -21,7 +25,28 @@ class PostController extends Controller
             'title' => 'required',
             'content' => 'required',
         ]);
-       
+
         auth()->user()->posts()->create($data);
+
+        return redirect('/home');
+    }
+
+    public function edit(Post $post){
+        return view('posts.edit', compact('post'));
+    }
+
+    public function update(Post $post){
+        $data = request()->validate([
+            'title' => 'required',
+            'content' => 'required',
+        ]);
+
+        auth()->user()->posts()->update($data);
+
+        return redirect('/home');
+    }
+
+    public function destroy($post){
+        //
     }
 }

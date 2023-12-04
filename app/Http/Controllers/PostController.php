@@ -47,6 +47,8 @@ class PostController extends Controller
     }
 
     public function destroy($post){
-        //
+        auth()->user()->posts()->delete($post);
+
+        return redirect('/home');
     }
 }
